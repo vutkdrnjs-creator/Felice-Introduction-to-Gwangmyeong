@@ -214,19 +214,7 @@ h2.t .r{color:var(--red)}
   .costcompare{grid-template-columns:1fr} .arrow{transform:rotate(90deg)}
   .cost-legend{grid-template-columns:1fr}
 }
-@media print{
-  @page{size:A4;margin:13mm}
-  html,body{background:#fff}
-  .printbar,.scrollcue{display:none!important}
-  .rv{opacity:1!important;transform:none!important}
-  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
-  .sec{padding:22px 0!important;break-inside:avoid}
-  .hero{min-height:auto;padding:34px 0!important;break-after:page}
-  .pagebreak{break-before:page}
-  .card,.ticket,.slide,.fx .item,.proc .step,.flag,.costcard,.yt{break-inside:avoid}
-  .yt-frame{display:none!important}
-  h2.t{break-after:avoid}
-}
+
 
 /* ---- Google Drive video player ---- */
 .vid{margin:0}
@@ -240,11 +228,7 @@ h2.t .r{color:var(--red)}
 .dark .vid-cap .ch{color:var(--amber-soft)}
 .vid-cap .tt{font-size:14.5px;font-weight:600;color:var(--navy-deep);line-height:1.4}
 .dark .vid-cap .tt{color:#f0ece1}
-@media print{
-  .vid-stage iframe{display:none!important}
-  .vid-stage .printonly{display:flex!important;position:absolute;inset:0;align-items:center;justify-content:center;color:#cdd6e6;font-size:13px;text-align:center;padding:16px}
-  .vid-qr{display:block!important}
-}
+
 
 .vidrow{grid-template-columns:repeat(3,1fr)}
 @media (max-width:840px){
@@ -259,7 +243,101 @@ h2.t .r{color:var(--red)}
 .vid-fs:hover{background:var(--red);border-color:var(--red)}
 .dark .vid-fs{background:rgba(255,255,255,.10);border-color:#3a3f4f;color:#fff}
 .dark .vid-fs:hover{background:var(--red);border-color:var(--red)}
-@media print{.vid-fs{display:none!important}}
+
+
+/* ================= PRINT (PDF 전용 레이아웃) ================= */
+@media print{
+  @page{size:A4;margin:11mm}
+  *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
+  html,body{background:#fff!important}
+  body{font-size:10.3pt!important;line-height:1.5!important}
+
+  /* 화면 전용 요소 숨김 */
+  .printbar,.scrollcue,.vid-fs,.yt-play,.yt-badge,.yt-frame{display:none!important}
+
+  /* 리빌 애니메이션 -> 보이게 */
+  .rv{opacity:1!important;transform:none!important}
+
+  /* 자연스러운 흐름: 섹션별 강제 분할 제거 */
+  .pagebreak{break-before:auto!important}
+  .sec{padding:12px 0!important;break-inside:auto!important}
+  .wrap{max-width:100%!important}
+
+  /* 작은 단위는 쪼개지지 않게 */
+  .card,.ticket,.slide,.fx .item,.proc .step,.flag,.costcard,.imgbox,
+  figure.vid,.vid-cap,.costcompare,.coststack,.trend,.lead,.quote,.note{break-inside:avoid!important}
+  h2.t,h3,h4,.kicker{break-after:avoid!important}
+
+  /* 조밀한 타이포 */
+  h2.t{font-size:18pt!important;margin-bottom:9px!important;line-height:1.25!important}
+  .kicker{margin-bottom:7px!important}
+  .lead{font-size:10.3pt!important;line-height:1.6!important;max-width:100%!important;margin-bottom:6px!important}
+  .muted{font-size:8.6pt!important}
+  .note{font-size:8.6pt!important;margin-top:8px!important}
+  h3.serif{font-size:13pt!important;margin-top:14px!important}
+
+  /* HERO -> 컴팩트 표지 밴드 */
+  .hero{min-height:auto!important;padding:24px 0 26px!important}
+  .hero-in{padding:16px 26px!important;max-width:100%!important}
+  .hero .bg{opacity:.30!important}
+  .hero .toptag{margin-bottom:16px!important}
+  .logo-badge{margin-bottom:18px!important;padding:16px 30px!important}
+  .logo-badge img{max-height:54px!important}
+  .hero h1{font-size:24pt!important;margin-bottom:12px!important}
+  .hero .sub{font-size:10pt!important}
+
+  /* 갤러리 -> 2열 고정 높이 */
+  .gallery{grid-template-columns:1fr 1fr!important;grid-template-rows:auto!important;gap:7px!important}
+  .gallery .imgbox{height:auto!important}
+  .gallery .big{grid-row:auto!important;grid-column:1 / -1!important}
+  .gallery .big img{height:205px!important}
+  .gallery .imgbox img{height:128px!important;object-fit:cover!important}
+
+  /* 그리드/스플릿 A4 맞춤 */
+  .split,.split.rev,.salesrow,.g2{grid-template-columns:1fr 1fr!important;gap:20px!important;align-items:start!important}
+  .g2 .imgbox img,.imgbox.framed img{max-height:225px!important;object-fit:cover!important}
+  .proc{grid-template-columns:repeat(4,1fr)!important;gap:8px!important;margin-top:12px!important}
+  .proc .step img{height:62px!important}
+  .proc .step .b{padding:9px 11px!important}
+  .fx{gap:8px!important}.fx .item{padding:12px 14px!important}
+  .fx .item .n{font-size:18px!important}
+  .trend{height:138px!important}
+  .costcompare{gap:14px!important;margin-top:14px!important}
+  .costcard{padding:14px!important}.costcard .big{font-size:27pt!important}
+  .arrow{font-size:22px!important}
+  .coststack{height:44px!important;margin-top:12px!important;font-size:10pt!important}
+  .cost-legend{gap:12px!important;margin-top:12px!important}
+  .flag{padding:18px!important}.flag .big{font-size:23pt!important}
+  .tickets{gap:8px!important;margin-top:14px!important}.ticket{padding:12px!important}
+  .ticket .amt{font-size:16pt!important}
+  .slides{gap:10px!important;margin-top:12px!important}.slide .imgs{padding:8px!important;gap:6px!important}
+  .slide .sh{padding:8px 11px!important}
+  .brandpills{gap:7px!important;margin-top:6px!important}.bp{padding:6px 13px!important;font-size:10pt!important}
+  .card{padding:16px!important}.card h3{font-size:12pt!important}.card p{font-size:9.6pt!important}
+  .quote{font-size:13pt!important;margin:12px 0!important;padding-left:14px!important}
+  .views{margin-top:8px!important}.chips{margin-top:10px!important;gap:7px!important}
+
+  /* 영상 -> 큰 16:9 박스 숨기고 QR 참조 카드 */
+  .vid-stage{display:none!important}
+  figure.vid{margin:0!important}
+  .vidrow{grid-template-columns:1fr!important;gap:8px!important}
+  .split .vid{align-self:start!important}
+  .vid-cap{display:flex!important;align-items:center;gap:9px!important;padding:9px 11px!important;
+    border:1px solid var(--paper-edge);border-radius:6px;background:#fff;margin-top:0!important}
+  .dark .vid-cap{background:rgba(255,255,255,.05);border-color:var(--char-line)}
+  .vid-qr{display:block!important;width:46px!important;height:46px!important;flex:0 0 46px!important;padding:2px!important;border:1px solid var(--paper-edge)!important;border-radius:4px!important}
+  .vid-cap .ch{font-size:8.8pt!important;margin-bottom:1px!important}
+  .vid-cap .tt{font-size:10pt!important;margin-bottom:1px!important}
+  .vid-cap .meta::after{content:"▶ QR 스캔 시 유튜브에서 시청";display:block;font-size:8.2pt;color:var(--ink-3);margin-top:2px}
+  .dark .vid-cap .meta::after{color:#9a9488}
+
+  /* 클로징 */
+  .closing{padding:24px 0!important;break-before:auto!important;break-inside:avoid!important}
+  .closing .lg{padding:14px 26px!important;margin-bottom:16px!important}
+  .closing .lg img{max-height:42px!important}
+  .closing h2{font-size:18pt!important}
+  .closing .info{margin-top:16px!important;font-size:10pt!important;line-height:1.7!important}
+}
 </style>
 </head>
 <body>
