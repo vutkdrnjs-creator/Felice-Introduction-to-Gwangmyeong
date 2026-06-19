@@ -279,7 +279,7 @@ h2.t .r{color:var(--red)}
 
 /* ================= PRINT (PDF 전용 레이아웃) ================= */
 @media print{
-  @page{size:A4;margin:11mm}
+  @page{size:A4;margin:0}
   *{-webkit-print-color-adjust:exact!important;print-color-adjust:exact!important}
   html,body{background:#fff!important}
   body{font-size:10.3pt!important;line-height:1.5!important}
@@ -292,7 +292,7 @@ h2.t .r{color:var(--red)}
 
   /* 자연스러운 흐름: 섹션별 강제 분할 제거 */
   .pagebreak{break-before:auto!important}
-  .sec{padding:12px 0!important;break-inside:auto!important}
+  .sec{padding:30px 14mm!important;break-inside:auto!important}
   .wrap{max-width:100%!important}
 
   /* 작은 단위는 쪼개지지 않게 */
@@ -309,7 +309,7 @@ h2.t .r{color:var(--red)}
   h3.serif{font-size:13pt!important;margin-top:14px!important}
 
   /* HERO -> 컴팩트 표지 밴드 */
-  .hero{min-height:auto!important;padding:24px 0 26px!important}
+  .hero{min-height:262mm!important;padding:60px 14mm!important;display:flex!important;align-items:center!important;break-after:page!important}
   .hero-in{padding:38px 44px!important;max-width:100%!important}
   .hero .bg{opacity:.30!important}
   .hero .toptag{margin-bottom:16px!important;letter-spacing:.28em!important;font-size:9.5pt!important}
@@ -364,27 +364,23 @@ h2.t .r{color:var(--red)}
   .dark .vid-cap .meta::after{color:#9a9488}
 
   /* 클로징 */
-  .closing{padding:24px 0!important;break-before:auto!important;break-inside:avoid!important}
+  .closing{padding:46px 14mm!important;min-height:210mm!important;display:flex!important;flex-direction:column!important;justify-content:center!important;break-before:page!important;break-inside:avoid!important}
   .closing .lg{padding:14px 26px!important;margin-bottom:16px!important}
   .closing .lg img{max-height:42px!important}
   .closing h2{font-size:18pt!important}
   .closing .info{margin-top:16px!important;font-size:10pt!important;line-height:1.7!important}
-  /* 인쇄: 한 내용/사진 당 한 페이지 (화면 뷰에는 영향 없음) */
+  /* 인쇄: 화면(HTML) 감성을 살린 풀블리드 브로슈어 — 사진은 그리드로 자연스럽게 흐름 */
   .pg-more,.lb{display:none!important}
-  .sec{break-before:page!important}
-  .pgal{display:block!important;margin-top:0!important}
-  .pg-item{display:flex!important;align-items:center;justify-content:center;position:relative!important;
-    width:100%!important;height:auto!important;min-height:245mm!important;aspect-ratio:auto!important;
-    border-radius:0!important;break-before:page!important;break-inside:avoid!important;page-break-inside:avoid!important}
-  .pg-item img{width:auto!important;height:auto!important;max-width:100%!important;max-height:232mm!important;object-fit:contain!important}
-  .pg-cap{position:absolute!important;left:0;right:0;bottom:0;font-size:11pt!important;padding:18px 12px 10px!important}
-  /* 단품/메뉴판/릴스 등 독립 이미지·가이드도 한 페이지씩 */
-  .g2{display:block!important}
-  .g2>figure{display:flex!important;align-items:center;justify-content:center;margin:0 auto!important;
-    min-height:245mm!important;box-shadow:none!important;border-radius:0!important;
-    break-before:page!important;break-inside:avoid!important}
-  .g2>figure>img{width:auto!important;height:auto!important;max-width:100%!important;max-height:250mm!important;object-fit:contain!important}
-  .slide{break-before:page!important;break-inside:avoid!important}
+  .pgal{display:grid!important;grid-template-columns:1fr 1fr!important;gap:11px!important;margin-top:18px!important}
+  .pg-item{position:relative!important;aspect-ratio:4/3!important;height:auto!important;min-height:0!important;
+    overflow:hidden!important;border-radius:9px!important;break-inside:avoid!important;page-break-inside:avoid!important}
+  .pg-item img{width:100%!important;height:100%!important;max-height:none!important;object-fit:cover!important}
+  .pg-cap{position:absolute!important;left:0;right:0;bottom:0;font-size:9.4pt!important;padding:18px 11px 8px!important}
+  .g2{display:grid!important;grid-template-columns:1fr 1fr!important;gap:14px!important;align-items:start!important}
+  .g2>figure{margin:0!important;box-shadow:none!important;border:1px solid var(--paper-edge)!important;
+    border-radius:8px!important;overflow:hidden!important;break-inside:avoid!important;page-break-inside:avoid!important}
+  .g2>figure>img{width:100%!important;height:auto!important;max-height:none!important;object-fit:contain!important}
+  .slide,.vid,.ticket,.costcard,.card{break-inside:avoid!important;page-break-inside:avoid!important}
 }
 </style>
 </head>
